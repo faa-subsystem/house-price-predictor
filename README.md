@@ -1,5 +1,5 @@
 # Dream Homes Price Estimator
-[Download Here]([https://sites.google.com/view/faurys-portfolio/software](https://drive.google.com/file/d/1yYWDOliph8UbnZN0lDld_N4O_U30TFDJ/view)) 
+[Download Here](https://drive.google.com/file/d/1yYWDOliph8UbnZN0lDld_N4O_U30TFDJ/view) 
 
 The real estate market had always been dynamic, presenting significant challenges in accurately estimating property prices. Clients often faced uncertainty and delays, which led to missed opportunities and decreased satisfaction. They lacked reliable tools to guide their decision-making effectively regarding property pricing.
 The standalone Windows application was developed to address these challenges. It incorporated a house price prediction model that utilized the Melbourne Housing dataset and machine learning techniques, specifically the Random Forest Regressor algorithm. The application predicted property prices based on key features such as location, square footage, and historical real estate data. Additionally, it included visualizations, such as histograms, scatter plots, and a correlation heatmap, to make complex data insights easily interpretable.
