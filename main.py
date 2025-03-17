@@ -45,7 +45,7 @@ class MainApp(MDApp):
         self.price_distribution = """Our data shows a majority of houses priced between 500,000 and 1,000,000"""
 
     def build(self):
-        self.icon = 'logo.ico'
+        self.icon = 'src\logo.ico'
         self.title = 'DH Price Estimator'
         self.main_screen = MainScreen()
         self.inout_data_screen = InputDataScreen()
