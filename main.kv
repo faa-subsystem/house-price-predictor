@@ -1,0 +1,274 @@
+<InteractiveBL>
+    orientation: "vertical"
+    padding: 25
+    spacing: 15
+    canvas.before:
+        Color:
+            rgba: 0, 0, 0, .5
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [25, 25, 25, 25]
+
+<OnFrontText>
+    background_color: 0,0,0,0
+    foreground_color: "white"
+    halign: "center"
+    valign: "center"
+
+<MainScreen>
+    name: 'main_screen'
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            md_bg_color: "#0133a4"
+            MDBoxLayout:
+                size_hint: None, None
+                size: dp(250), dp(100)
+                pos_hint: {"center_x": .5, "center_y": .5}
+                adaptive_size: True
+                padding: dp(10)
+                FitImage:
+                    source: "main_.png"
+                    size_hint: None, None
+                    size: dp(150), dp(50)
+        MDBoxLayout:
+            id: parent_box
+            orientation: "horizontal"
+            size_hint: 1,.9
+            padding: 25
+            spacing: 15
+            pos_hint: {"center_x": .5, "top": .9}
+            canvas.before:
+                Rectangle:
+                    source: "home_bg.png"
+                    pos: self.pos
+                    size: self.size
+
+            InteractiveBL:
+                id: left_box
+                size_hint: .3,1
+                pos_hint: {"center_x": .5, "top": 1}
+                on_enter: app.re_size(self, [middle_box, right_box])
+                MDCard:
+                    size_hint: None, None
+                    size: self.parent.width*.9, self.parent.height*0.5
+                    pos_hint: {"center_x": .5, "top": 1}
+                    FitImage:
+                        source: "histogram_of_prices.png"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: None, None
+                        size: self.parent.width*1, self.parent.height*1
+                        radius: [25,25,25,25]
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: dp(5)
+                    spacing: dp(5)
+                    OnFrontText:
+                        size_hint: 1, None
+                        height: "50dp"
+                        pos_hint: {"center_x": 0.5, "top": 1}
+                        text: "Distribution of House Prices"
+                        font_size: dp(30)
+                    OnFrontText:
+                        id: left_box_text
+                        multiline: True
+                        pos_hint: {"center_x": 0.5, "top": 1}
+                        text: app.price_distribution
+            InteractiveBL:
+                id: middle_box
+                size_hint: .3,1
+                pos_hint: {"center_x": .5, "top": 1}
+                on_enter: app.re_size(self, [left_box, right_box])
+                MDCard:
+                    size_hint: None, None
+                    size: self.parent.width*.9, self.parent.height*0.5
+                    pos_hint: {"center_x": .5, "top": 1}
+                    FitImage:
+                        source: "correlation_heatmap.png"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: None, None
+                        size: self.parent.width*1, self.parent.height*1
+                        radius: [25,25,25,25]
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: dp(5)
+                    spacing: dp(5)
+                    OnFrontText:
+                        size_hint: 1, None
+                        height: "50dp"
+                        pos_hint: {"center_x": 0.5, "top": 1}
+                        text: "Correlation Heatmap"
+                        font_size: dp(30)
+                    OnFrontText:
+                        id: left_box_text
+                        multiline: True
+                        pos_hint: {"center_x": 0.5, "top": 1}
+                        text: app.correlation_description
+
+            InteractiveBL:
+                id: right_box
+                size_hint: .3,1
+                pos_hint: {"center_x": .5, "top": 1}
+                on_enter: app.re_size(self, [middle_box, left_box])
+                MDCard:
+                    size_hint: None, None
+                    size: self.parent.width*.9, self.parent.height*0.5
+                    pos_hint: {"center_x": .5, "top": 1}
+                    FitImage:
+                        source: "square_footage_vs_price.png"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        size_hint: None, None
+                        size: self.parent.width*1, self.parent.height*1
+                        radius: [25,25,25,25]
+                MDBoxLayout:
+                    orientation: "vertical"
+                    padding: dp(5)
+                    spacing: dp(5)
+                    OnFrontText:
+                        size_hint: 1, None
+                        height: "50dp"
+                        pos_hint: {"center_x": 0.5, "top": 1}
+                        text: "Square Footage vs. Price"
+                        font_size: dp(30)
+                    OnFrontText:
+                        id: left_box_text
+                        multiline: True
+                        pos_hint: {"center_x": 0.5, "top": 1}
+                        text: app.square_footage_price_description
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint: 1,.1
+            padding: 25
+            spacing: 15
+            pos_hint: {"center_x": .5, "bottom": 1}
+            md_bg_color: "gray"
+            md_bg_color: "#0133a4"
+            MDRaisedButton:
+                pos_hint: {"center_x": .5, "center_y": .5}
+                text: "Calculate"
+                md_bg_color: "red"
+                #on_release: app.change_screen("data_input_screen")
+                on_release: app.screen.current = 'data_input_screen'
+            MDTextFieldRect:
+                size_hint: None, None
+                height: 40
+                width: 700
+                pos_hint: {"center_x": 0.5, "center_y": .5}
+                text: "Press 'Calculate' Button to estimate your property's price"
+                background_color: 0,0,0,0
+                foreground_color: "white"
+
+<InputDataScreen>
+    name: 'data_input_screen'
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MDTopAppBar:
+            md_bg_color: "#0133a4"
+            MDBoxLayout:
+                size_hint: None, None
+                size: dp(250), dp(100)
+                pos_hint: {"center_x": .5, "center_y": .5}
+                adaptive_size: True
+                padding: dp(10)
+                FitImage:
+                    source: "main_.png"
+                    size_hint: None, None
+                    size: dp(150), dp(50)
+        MDBoxLayout:
+            id: parent_box
+            orientation: "horizontal"
+            size_hint: 1,.9
+            padding: 25
+            spacing: 15
+            #pos_hint: {"center_x": .5, "top": .9}
+            #md_bg_color: "blue"
+            canvas.before:
+                Rectangle:
+                    source: "home_bg.png"
+                    pos: self.pos
+                    size: self.size
+            MDBoxLayout:
+                size_hint: 1,1
+                md_bg_color: 0,0,0,0
+            MDBoxLayout:
+                orientation: "vertical"
+                padding: 25
+                spacing: 15
+                size_hint: None, None
+                size: dp(350), dp(450)
+                pos_hint: {"center_x": -1, "center_y": .5}
+                md_bg_color: 0,0,0,.7
+                radius: [25, 25, 25, 25]
+                OnFrontText:
+                    size_hint: 1, None
+                    height: "50dp"
+                    pos_hint: {"center_x": 0.5, "top": 1}
+                    text: "Characteristics"
+                    font_size: dp(30)
+                MDTextField:
+                    id: rooms
+                    hint_text: "Number of Rooms"
+                    mode: "rectangle"
+                    input_filter: "float"
+                MDTextField:
+                    id: bath
+                    hint_text: "Number of Bathrooms"
+                    mode: "rectangle"
+                    input_filter: "float"
+                MDTextField:
+                    id: land
+                    hint_text: "Land Size (In square meters)"
+                    mode: "rectangle"
+                    input_filter: "float"
+                MDTextField:
+                    id: lat
+                    hint_text: "Latitude"
+                    mode: "rectangle"
+                    input_filter: "float"
+                MDTextField:
+                    id: lon
+                    hint_text: "Longitude"
+                    mode: "rectangle"
+                    input_filter: "float"
+            MDBoxLayout:
+                size_hint: 1,1
+                md_bg_color: 0,0,0,0
+        MDBoxLayout:
+            orientation: "horizontal"
+            size_hint: 1,.1
+            padding: 25
+            spacing: 15
+            pos_hint: {"center_x": .5, "bottom": 1}
+            md_bg_color: "gray"
+            md_bg_color: "#0133a4"
+            MDRaisedButton:
+                pos_hint: {"center_x": .5, "center_y": .5}
+                text: "Back"
+                md_bg_color: "red"
+                on_release: app.screen.current = 'main_screen'
+            MDRaisedButton:
+                pos_hint: {"center_x": .5, "center_y": .5}
+                text: "Calculate"
+                md_bg_color: "red"
+                on_release: app.do_prediction()
+            MDTextFieldRect:
+                size_hint: None, None
+                height: 40
+                width: 180
+                pos_hint: {"center_x": 0.5, "center_y": .5}
+                text: "Estimated Price:"
+                background_color: 0,0,0,0
+                foreground_color: "white"
+            MDTextFieldRect:
+                id: estimated_price_field
+                size_hint: None, None
+                height: 40
+                width: 200
+                pos_hint: {"center_x": 0.5, "center_y": .5}
+                background_color: 0,0,0,0
+                font_size: dp(20)
+                foreground_color: "white"
+                text: ""
